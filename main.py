@@ -1,5 +1,6 @@
 import pandas as pd
 
+# import the csv file and printing the first ten rows of the file
 ad_clicks = pd.read_csv('ad_clicks.csv')
 print(ad_clicks.head(10))
 print(ad_clicks.groupby('utm_source')\
@@ -9,6 +10,7 @@ print(ad_clicks.groupby('utm_source')\
 ad_clicks['is_click'] = ~ad_clicks\
    .ad_click_timestamp.isnull()
 
+#Counting the number of clicks for each source
 clicks_by_source = ad_clicks\
    .groupby(['utm_source',
              'is_click'])\
@@ -24,6 +26,7 @@ clicks_pivot['percent_clicked'] = clicks_pivot[True] / (clicks_pivot[True] + cli
 
 print(clicks_pivot)
 
+#Counting of number of clicks for each banner
 group_count = ad_clicks\
   	.groupby('experimental_group').user_id\
        .count()\
